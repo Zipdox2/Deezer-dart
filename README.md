@@ -140,6 +140,7 @@ To use this package
 
     | Function             | Description                |
     | :-----------------   | :------------------------- |
+    | getSelf              | Get user details of self   |
     | getUser              | Get user details           |
     | getUserAlbums        | Get user albums            |
     | getUserArtists       | Get user artists           |

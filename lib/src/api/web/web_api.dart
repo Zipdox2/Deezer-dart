@@ -204,7 +204,7 @@ Future<Response> removeFavoriteSong(
 }
 
 // Get Access Token
-Future<String> getAccessToken(Dio client) async {
+Future<Map> getUserData(Dio client) async {
   try {
     Response response = await client.get(
       '$webUrl?api_token=null&api_version=1.0&input=3&method=deezer.getUserData',
@@ -215,7 +215,7 @@ Future<String> getAccessToken(Dio client) async {
         message: "Login expired add new arl",
       );
     } else {
-      return response.data['results']['checkForm'];
+      return response.data['results'];
     }
   } catch (e) {
     if (e is DioException) {

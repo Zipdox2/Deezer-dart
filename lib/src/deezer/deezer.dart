@@ -110,17 +110,39 @@ class Deezer {
     Duration duration = const Duration(minutes: 30),
   ]) async {
     // create new token
-    token = await getAccessToken(client);
+    Map data = await getUserData(client);
+    token = data['checkForm'];
     // refresh token after duration
     while (refreshtk) {
       await Future.delayed(duration);
-      token = await getAccessToken(client);
+      Map data = await getUserData(client);
+    token = data['checkForm'];
     }
   }
 
   // refresh the token
   Future<void> refresh() async {
-    token = await getAccessToken(client); // get new token
+    Map data = await getUserData(client); // get new token
+    token = data['checkForm'];
+  }
+
+  Future<User> getSelf() async {
+    Map data = await getUserData(client);
+    int userId = data['USER']['USER_ID'];
+    String pictureHash = data['USER']['USER_PICTURE'];
+    return User(
+      id: userId.toString(),
+      name: data['USER']['BLOG_NAME'],
+      link: 'https://www.deezer.com/profile/$userId',
+      picture: 'https://api.deezer.com/user/$userId/image',
+      pictureSmall: 'https://cdn-images.dzcdn.net/images/user/$pictureHash/56x56-000000-80-0-0.jpg',
+      pictureMedium: 'https://cdn-images.dzcdn.net/images/user/$pictureHash/250x250-000000-80-0-0.jpg',
+      pictureBig: 'https://cdn-images.dzcdn.net/images/user/$pictureHash/500x500-000000-80-0-0.jpg',
+      pictureXl: 'https://cdn-images.dzcdn.net/images/user/$pictureHash/1000x1000-000000-80-0-0.jpg',
+      country: data['COUNTRY'],
+      tracklist: 'https://api.deezer.com/user/$userId/flow',
+      type: 'user'
+    );
   }
 
   // create an Dio client with default cookies
