@@ -203,7 +203,7 @@ Future<Response> removeFavoriteSong(
   }
 }
 
-// Get Access Token
+// Get User Data
 Future<Map> getUserData(Dio client) async {
   try {
     Response response = await client.get(
@@ -234,4 +234,10 @@ Future<Map> getUserData(Dio client) async {
       );
     }
   }
+}
+
+// Get Access Token
+Future<String> getAccessToken(Dio client) async {
+  Map data = await getUserData(client);
+  return data['checkForm'];
 }

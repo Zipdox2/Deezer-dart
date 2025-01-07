@@ -110,20 +110,17 @@ class Deezer {
     Duration duration = const Duration(minutes: 30),
   ]) async {
     // create new token
-    Map data = await getUserData(client);
-    token = data['checkForm'];
+    token = await getAccessToken(client);
     // refresh token after duration
     while (refreshtk) {
       await Future.delayed(duration);
-      Map data = await getUserData(client);
-    token = data['checkForm'];
+      token = await getAccessToken(client);
     }
   }
 
   // refresh the token
   Future<void> refresh() async {
-    Map data = await getUserData(client); // get new token
-    token = data['checkForm'];
+    token = await getAccessToken(client);
   }
 
   Future<User> getSelf() async {
