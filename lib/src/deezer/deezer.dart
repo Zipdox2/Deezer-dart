@@ -120,7 +120,7 @@ class Deezer {
 
   // refresh the token
   Future<void> refresh() async {
-    token = await getAccessToken(client);
+    token = await getAccessToken(client); // get new token
   }
 
   Future<User> getSelf() async {
